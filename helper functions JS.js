@@ -179,3 +179,30 @@ function factorialRecursion1(n) {
     if (n === 1) return 1
     else return factorialRecursion(n - 1) * n
 }
+
+function renderCell(location, value) {
+  // Select the elCell and set the value
+  var elCell = document.querySelector(`.cell-${location.i}-${location.j}`);
+  elCell.classList.toggle(value);
+}
+//--------------------------------------------------------------------
+//  <label id="minutes">00</label>:<label id="seconds">00</label>
+
+let minutesLabel = document.getElementById('minutes');
+let secondsLabel = document.getElementById('seconds');
+let totalSeconds = 0;
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  let valString = val + '';
+  if (valString.length < 2) {
+    return '0' + valString;
+  } else {
+    return valString;
+  }
+}
