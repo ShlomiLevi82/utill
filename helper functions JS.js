@@ -206,3 +206,48 @@ function pad(val) {
     return valString;
   }
 }
+
+//--------------------Diagonals-------------------------------
+
+function countInSecondaryDiagonal(board, symbol) {
+    var count = 0
+
+    for (var i = 0; i < board.length; i++) {
+        var cell = board[i][board.length - 1 - i]
+        if (cell === symbol) count++
+
+    }
+    return count
+}
+
+function countInPrimaryDiagonal(board, symbol) {
+    var count = 0
+
+    for (var i = 0; i < board.length; i++) {
+        var cell = board[i][i]
+        if (cell === symbol) count++
+
+    }
+    return count
+}
+
+function countInCol(board, colIdx, symbol) {
+    var count = 0
+
+    for (var i = 0; i < board.length; i++) {
+        var cell = board[i][colIdx]
+        if (cell === symbol) count++
+    }
+    return count
+}
+
+function countInRow(board, rowIdx, symbol) {
+    var count = 0
+
+    for (var i = 0; i < board[0].length; i++) {
+        var cell = board[rowIdx][i]
+        if (cell === symbol) count++
+    }
+    return count
+}
+//------------------------------------------------------------------
