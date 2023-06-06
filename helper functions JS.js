@@ -145,6 +145,14 @@ function findBestPos(board) {
 Array.sort((p1, p2) => a1.score - a2.score)
 
 Array.sort((p1, p2) => p1.name.localeCompare(p2.name))
+
+function sortByRate(movies) {
+  return movies.sort((a, b) => b.rate - a.rate)
+}
+function sortByName(movies) {
+  return movies.sort((a, b) => a.name.localeCompare(b.name))
+}
+
 //----------------------------------------------------
 function hanoi(n, from, to, via) {
   if (n === 0) return
@@ -207,47 +215,37 @@ function pad(val) {
   }
 }
 
-//--------------------Diagonals-------------------------------
+findModes([1, 2, 3, 3, 4, 4, 3, 2, 2])
 
-function countInSecondaryDiagonal(board, symbol) {
-    var count = 0
-
-    for (var i = 0; i < board.length; i++) {
-        var cell = board[i][board.length - 1 - i]
-        if (cell === symbol) count++
-
+function findModes(values) {
+  let counts = values.reduce((acc, val) => {
+    if (!acc[val]) {
+      acc[val] = 0
     }
-    return count
+    acc[val]++
+    return acc
+  }, {})
+
+  let maxCount = Math.max(...Object.values(counts))
+  let modes = Object.keys(counts).filter((key) => counts[key] === maxCount)
+
+  console.log(`Mode(s): ${modes.join(', ')}`) // Mode(s): 2, 3
 }
 
-function countInPrimaryDiagonal(board, symbol) {
-    var count = 0
-
-    for (var i = 0; i < board.length; i++) {
-        var cell = board[i][i]
-        if (cell === symbol) count++
-
+// flattens the array, 
+//meaning that if an item in this array is an array, 
+//it will push all its values to the result array.
+//i.e. Input: [‘Hello’, [9, 6] ,18, [4, 7, 8]]
+// output: [‘Hello’, 9, 6 ,18, 4, 7, 8]
+// use recursion to support any level
+function flatten(values) {
+  let result = []
+  values.forEach((value) => {
+    if (Array.isArray(value)) {
+      result.push(...flatten(value))
+    } else {
+      result.push(value)
     }
-    return count
+  })
+  return result
 }
-
-function countInCol(board, colIdx, symbol) {
-    var count = 0
-
-    for (var i = 0; i < board.length; i++) {
-        var cell = board[i][colIdx]
-        if (cell === symbol) count++
-    }
-    return count
-}
-
-function countInRow(board, rowIdx, symbol) {
-    var count = 0
-
-    for (var i = 0; i < board[0].length; i++) {
-        var cell = board[rowIdx][i]
-        if (cell === symbol) count++
-    }
-    return count
-}
-//------------------------------------------------------------------
